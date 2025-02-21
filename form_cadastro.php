@@ -1,16 +1,29 @@
 <?php
-    if (isset($_POST['submit'])){
+try{
+    $con = new PDO('pgsql:host=localhost; port=5432;dbname=20221214010024','postgres', 'pabd');
+    
+   // if (isset($_POST['submit'])){
         //print_r($_POST['nome']);
         //print_r($_POST['senha']);
-        include_once('config.php');
+       // include_once('config.php');
 
-        $username=$_POST['username'];
-        $senha=$_POST['senha'];
+       // $username=$_POST['username'];
+       // $senha=$_POST['senha'];
 
-        $result=  NEW PD0 ($con, "INSERT INTO usuario (userneme,senha) VALUES ('$username'.'$senha')");
+       // $result=  NEW PD0 ($con, "INSERT INTO usuario (userneme,senha) VALUES ('$username'.'$senha')");
+   // }
+   if ($con) {
+        echo "deu certo";
+            $comando1 = $con->query("SELECT * FROM usuario");
+    
+        while ($var_linha = $comando1->fetch()) {
+            echo $var_linha[1] . "<br/>";	
     }
+    }
+} catch (PDOException $e) {
+    echo 'DEU ERRADO!!!' . $e;
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +33,9 @@
     <title>Cadastro</title>
 </head>
 <body>
-    <a href="home.php">voltar</a>
+    <a href="parte1.php">voltar</a>
     <div class="box">
-        <form action="form.cadastro.php" method="POST">
+        <form action="insertusuario.php" method="POST">
             <fieldset>
                 <legend> Formulario de usuario </legend>
                 <br>
@@ -31,8 +44,8 @@
                     <label for="username"> Username </label>
                 </div>
                 <div class="inputbox">
-                    <input type="password" name="password" id="password" class="inputpassword" required>
-                    <label for="password"> Senha </label>
+                    <input type="password" name="senha" id="senha" class="inputsenha" required>
+                    <label for="senha"> Senha </label>
                 </div>
                 <input type="submit" name="submit" id="submit">
             </fieldset>
